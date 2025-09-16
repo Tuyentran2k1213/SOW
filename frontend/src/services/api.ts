@@ -1,12 +1,10 @@
 import axios from 'axios';
 import { Terms, Product } from '../types';
 
-// Configure axios base URL
-const API_BASE = 'http://localhost:3000/api'
+const BASE_URL = `${import.meta.env.VITE_API_URL}/api`
 
-// Create axios instance
 const axiosInstance = axios.create({
-  baseURL: API_BASE,
+  baseURL: BASE_URL,
   headers: {
     'Content-Type': 'application/json',
   },
