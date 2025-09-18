@@ -3,17 +3,25 @@ import React, { useEffect, useState, useRef } from 'react';
 import { api } from '../../services/api';
 import { Product } from '../../types';
 import './style.css'
+import AnimatedMenuIcon from '../../components/ui/AnimatedMenuIcon';
+import LanguageSelector from '../../components/LanguageSelector';
 
 export const PriceList: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [editingCell, setEditingCell] = useState<{id: number, field: string} | null>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const [language, setLanguage] = useState<'en' | 'sv'>('en');
+  const [openSidebar, setOpenSidebar] = useState(false);
 
   useEffect(() => {
     loadProducts();
   }, []);
 
+  const toggleSidebar = () => {
+    setOpenSidebar(prev => !prev)
+  }
+ 
   const loadProducts = async () => {
     try {
       setLoading(true);
@@ -67,14 +75,8 @@ export const PriceList: React.FC = () => {
 
   return (
     <div className="pricelist-container">
-      {/* Header */}
       <header className="pricelist-header">
         <div className="header-left">
-          <button className="hamburger-menu">
-            <span></span>
-            <span></span>
-            <span></span>
-          </button>
           <div className="user-info">
             <div className="user-avatar">
               <span>JA</span>
@@ -86,14 +88,13 @@ export const PriceList: React.FC = () => {
           </div>
         </div>
         <div className="header-right">
-          <span className="location">Norsk Bokmål</span>
-          <img src="https://storage.123fakturere.no/public/flags/SE.png" alt="Flag" className="flag" />
+          <LanguageSelector language={language} onChangeLanguage={setLanguage} />
         </div>
       </header>
 
-      {/* Desktop View */}
-      <div className="desktop-view">
+      <div className={`desktop-view ${openSidebar ? 'open' : ''}`}>
         {/* Sidebar */}
+        <div className='blank_page' onClick={toggleSidebar}></div>
         <aside className="sidebar">
           <nav className="menu">
             <h3>Menu</h3>
@@ -290,7 +291,7 @@ export const PriceList: React.FC = () => {
       <div className="mobile-view">
         {/* Mobile Header */}
         <div className="mobile-header">
-          <button className="hamburger-mobile">☰</button>
+        <AnimatedMenuIcon className='burger-btn' onClick={toggleSidebar} isOpen={openSidebar}/>
           <span className="mobile-title">Price List</span>
           <div className="mobile-lang">
             <span>English</span>

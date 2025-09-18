@@ -92,20 +92,35 @@
   
   /* Desktop View */
   .desktop-view {
+    width: 100%;
     display: flex;
-    height: calc(100vh - 70px);
+    height: calc(100vh - 62px);
+  }
+  .desktop-view .blank_page {
+    content: '';
+    height: 100%;
+    width: 100%;
+    left: 0;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.24);
+    z-index: 90;
+    display: none;
   }
   
-  /* Sidebar */
   .sidebar {
     width: 250px;
     background: white;
     border-right: 1px solid #e0e0e0;
     overflow-y: auto;
+    z-index: 100;
   }
   
   .menu {
     padding: 20px 0;
+  }
+ 
+  .mobile-header .burger-btn > span {
+    background: white !important;
   }
   
   .menu h3 {
@@ -400,8 +415,28 @@
   
   /* Mobile Portrait (max-width: 767px) */
   @media (max-width: 767px) {
-    .desktop-view {
+    /* .desktop-view {
       display: none;
+    } */
+    .desktop-view .main-content {
+      display: none;
+    }
+
+    .desktop-view {
+      display: flex;
+      position: fixed;
+      z-index: 100;
+      top: 50px;
+      left: -50%;
+      transition: all 0.5s;
+    }
+
+    .desktop-view.open .blank_page {
+      display: block;
+      transition: none !important;
+    }
+    .desktop-view.open {
+      left: 0%;
     }
     
     .pricelist-header {
@@ -420,6 +455,9 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      position: sticky;
+      top: 0px;
+      z-index: 100;
     }
     
     .hamburger-mobile {

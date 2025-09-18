@@ -5,3 +5,7 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 }
+
+* {
+  font-family: "Open Sans", sans-serif !important;
+}
