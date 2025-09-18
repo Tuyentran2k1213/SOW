@@ -6,7 +6,7 @@ type LanguageSelectorProps = {
     className?: string
 }
 
-const LanguageSelector: FC<LanguageSelectorProps> = ({ language, onChangeLanguage, className }) => {
+const LanguageSelector: FC<LanguageSelectorProps> = ({ language, onChangeLanguage }) => {
     const [languageOpen, setLanguageOpen] = useState(false);
     const selectLanguage = (languages:"en" | "sv") => {
         onChangeLanguage(languages);
